@@ -1,5 +1,6 @@
 package com.study.account;
 
+import com.study.domain.Account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,10 @@ class AccountControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
-         assertTrue(accountRepository.existsByEmail("email@email.com"));
-
+        Account byEmail = accountRepository.findByEmail("email@email.com");
+        assertNotNull(byEmail);
+        assertNotNull(byEmail.getEmailCheckToken());
+        assertTrue(accountRepository.existsByEmail("email@email.com"));
         then(javaMailSender).should().send(any(SimpleMailMessage.class));
     }
 }
