@@ -27,4 +27,5 @@ public class Profile{
         this.location = account.getLocation();
         this.profileImage = account.getProfileImage();
     }
+
 }
